@@ -22,13 +22,17 @@ const Problem1 = () => {
     const getSortedTasks = () => {
         // Sort tasks by the given order: Active, Completed, Others
         const sortedTasks = tasks.sort((a, b) => {
-            const order = ['Active', 'Completed'];
-            return order.indexOf(a.status) - order.indexOf(b.status);
+          const order = [ 'Completed','Active'];
+          if (order.indexOf(a.status) === order.indexOf(b.status)) {
+            // If both tasks have the same status, maintain their original order
+            return 0;
+          }
+          return order.indexOf(a.status) > order.indexOf(b.status) ? -1 : 1;
         });
-
+    
         // Filter tasks based on the selected tab
         return show === 'all' ? sortedTasks : sortedTasks.filter((task) => task.status.toLowerCase() === show);
-    };
+      };
 
     const sortedTasks = getSortedTasks();
 
